@@ -1,0 +1,30 @@
+From: receipts@learnsphere.example
+To: jtran@email.example
+Subject: Your LearnSphere enrollment receipt - Order LS-908871
+Date: Mon, 10 Mar 2025 14:08:22 -0400
+
+Hi Jordan,
+
+Thanks for enrolling! This email confirms your purchase.
+
+  Order number:    LS-908871
+  Enrollment date: 2025-03-10
+  Student:         Jordan Tran (jtran@email.example)
+
+  Course:          Foundations of Data Analysis (Certificate)
+                   Offered by Maple Ridge College - Continuing Education
+
+  Course fee ............................. $130.00
+  Tax (HST 13%) .......................... $ 16.90
+  -----------------------------------------------
+  Total charged .......................... $146.90
+
+  Payment method:  Visa ending 4127
+  Status:          PAID
+
+You now have full access to the course. A PDF tax receipt is also
+available in your account under Purchases.
+
+Happy learning,
+The LearnSphere Team
+learnsphere-demo.example

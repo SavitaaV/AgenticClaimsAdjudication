@@ -1,0 +1,24 @@
+From: noreply@peakpass.example
+To: jtran@email.example
+Subject: PeakPass receipt - Winter Season Pass
+Date: Tue, 14 Nov 2023 20:41:05 -0500
+
+Hello Jordan,
+
+Your purchase is confirmed. Receipt below.
+
+  Confirmation:   PP-2023-66218
+  Purchase date:  2023-11-14
+  Pass holder:    Jordan Tran
+
+  Item:           Winter Season Pass 2023/24 - Blue Mountain
+  Price ........................... $529.00
+  HST 13% ......................... $ 68.77
+  --------------------------------------------
+  Total paid ...................... $597.77
+
+  Payment:        Visa ending 4127
+  Status:         PAID IN FULL
+
+Enjoy the slopes!
+PeakPass - peakpass-demo.example

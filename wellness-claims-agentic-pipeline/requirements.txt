@@ -1,0 +1,8 @@
+anthropic
+gradio==6.19.0
+Pillow
+python-docx
+pymupdf
+pydantic
+pypdf
+google-generativeai
