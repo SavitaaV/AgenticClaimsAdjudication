@@ -92,7 +92,7 @@ Receipt (image / PDF / email / text)
 ## Repo Structure
 
 ```
-AI_Builder_Adjudication_Agent_Case_2026/
+AgenticClaimsAdjudication/
 └── wellness-claims-agentic-pipeline/
     ├── agents/
     │   ├── models/
@@ -133,7 +133,7 @@ AI_Builder_Adjudication_Agent_Case_2026/
 
 ### Step 1 — Upload the repo to Google Drive
 
-Upload the entire `AI_Builder_Adjudication_Agent_Case_2026/` folder to the root of your Google Drive, preserving the folder structure exactly as shown in the repo.
+Upload the entire `AgenticClaimsAdjudication/` folder to the root of your Google Drive, preserving the folder structure exactly as shown in the repo.
 
 ### Step 2 — Open a new Colab notebook
 
@@ -151,7 +151,7 @@ from google.colab import drive, userdata
 drive.mount('/content/drive')
 
 import os
-PROJECT_FOLDER = '/content/drive/MyDrive/AI_Builder_Adjudication_Agent_Case_2026/wellness-claims-agentic-pipeline'
+PROJECT_FOLDER = '/content/drive/MyDrive/AgenticClaimsAdjudication/wellness-claims-agentic-pipeline'
 ```
 
 ### Step 4 — Install dependencies
