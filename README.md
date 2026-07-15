@@ -135,9 +135,13 @@ AgenticClaimsAdjudication/
 
 Upload the entire `AgenticClaimsAdjudication/` folder to the root of your Google Drive, preserving the folder structure exactly as shown in the repo.
 
-### Step 2 — Open a new Colab notebook
+### Step 2 — Open the Colab notebook
 
-Go to [colab.research.google.com](https://colab.research.google.com) and create a new notebook.
+A ready-to-run Colab notebook is included in the repo root:
+
+**`WellnessClaimPorcessingAgenticWorkflow.ipynb`**
+
+Open it directly in Google Colab — click the file in GitHub and then click **Open in Colab**, or go to [colab.research.google.com](https://colab.research.google.com) → File → Open notebook → GitHub → paste the repo URL. The notebook already contains all the setup cells in the right order — you do not need to create a new notebook or copy any commands manually.
 
 > **Before running:** Add your Anthropic API key to Colab Secrets. Click the 🔑 icon in the left sidebar → New secret → Name: `ANTHROPIC_API_KEY`, Value: your key. Do not paste your key directly into a cell.
 
@@ -308,6 +312,135 @@ To also regenerate the compiled system prompts from the updated documents:
 ```python
 !python create_agent_prompts.py
 ```
+
+---
+
+## UI Walkthrough
+
+> **To use the screenshots below:** Create a `screenshots/` folder in the repo root and save each screenshot with the filename shown. GitHub will render them inline in this README.
+
+---
+
+### Step 1 — App launches in Colab
+
+After running the launch cell, Colab prints a public Gradio URL. Open it in any browser.
+
+![Colab launch](screenshots/01_colab_launch.png)
+
+You will see output confirming all three agents read their prompt files successfully, followed by the public URL — something like `https://xxxxx.gradio.live`. The link is valid for up to one week.
+
+---
+
+### Step 2 — Submit a claim
+
+The app opens on the **Submit a claim** tab.
+
+![Submit a claim — empty](screenshots/02_submit_claim.png)
+
+To submit a claim:
+1. Click the upload area or drag and drop a receipt file (JPG, PNG, PDF, TXT, or DOCX)
+2. Enter the claimant's name exactly as it appears on the submission form
+3. Select coverage type — **single** or **family**
+4. Click **Submit claim →**
+
+![Submit a claim — filled in](screenshots/04_submit_with_receipt.png)
+
+The status line below the button shows `⏳ Claim submission request is being processed...` while the three-agent pipeline runs. This takes approximately 10–30 seconds depending on the model and receipt complexity.
+
+![Claim submitted successfully](screenshots/05_claim_submitted.png)
+
+When complete you will see `✅ Claim submitted successfully — Your claim has been received and is queued for examiner review.`
+
+---
+
+### Step 3 — View the claims queue
+
+Click the **Claims queue** tab.
+
+![Claims queue — empty](screenshots/03_claims_queue_empty.png)
+
+The stats bar at the top shows a live count of every claim by status — total, confident, needs review, approved, rejected, pended, escalated, routed, high confidence, and average confidence across the batch. Click **Refresh queue** to update after new submissions.
+
+After submitting a claim you will see it appear in the table:
+
+![Claims queue — populated](screenshots/06_claims_queue_populated.png)
+
+The table columns are:
+
+| Column | What it shows |
+|--------|--------------|
+| ID | Claim number — e.g. `#001` |
+| Vendor | Extracted vendor name from the receipt |
+| Claimant | Name entered at submission |
+| Date | Date incurred, extracted from the receipt |
+| Amount | Total claim amount |
+| Queue | `🏅 Confident` or `👁 Needs review` |
+| Confidence | Agent confidence score as a percentage |
+| Code | Agent suggested reason code (e.g. A-OK, P-DOC, D-EXP) |
+| Status | Current examiner status (Awaiting / Approved / Rejected etc.) |
+
+Use the filter pills — **All**, **Awaiting Review**, **Decided** — to narrow the view.
+
+---
+
+### Step 4 — Open and review a claim
+
+To open a specific claim for detailed review:
+
+1. Type the claim ID number into the input box above the table — e.g. type `001` for claim `#001`
+2. Click **View claim →**
+
+![Claim detail — agent recommendation](screenshots/07_claim_detail_recommendation.png)
+
+The detail view has two panels.
+
+**Left panel — Agent analysis:**
+- Agent recommendation with reason code (e.g. `✅ APPROVE — A-OK`)
+- Confidence score with expandable breakdown showing each deduction
+- Rationale — the adjudicator's reasoning in plain language
+- Cited rules — specific manual sections and booklet clauses referenced
+- Tax flag — payroll note on every approval (mandatory per Manual §4.2)
+- Uncertainty — any caveats the agent flagged
+- Examiner tip — a specific action suggested to close any open question
+- Claim details table — all extracted fields from the receipt
+
+**Right panel — Examiner decision:**
+- Ask the agent — a live Q&A chatbot for questions about this specific claim
+- Notes (mandatory) — required for all decisions, forms the audit trail
+- Override reason (mandatory if overriding) — required when your decision differs from the agent
+- Five action buttons: **Approve**, **Reject**, **Pend**, **Escalate**, **Route to HCSA**
+- Feedback for agent learning (optional) — what the agent got right or wrong
+
+---
+
+### Step 5 — View the receipt
+
+Click **🧾 View receipt** to open the original uploaded file alongside the claim analysis.
+
+![Claim detail — receipt view](screenshots/08_claim_detail_receipt.png)
+
+The receipt renders on the left. The examiner decision panel remains visible on the right so you can review the original document and take action without switching views. Click **✕ Close receipt** to return to the full analysis view.
+
+---
+
+### Step 6 — Take an examiner action
+
+![Claim detail — examiner decision](screenshots/09_claim_detail_examiner.png)
+
+To action a claim:
+
+1. Read the agent recommendation, rationale, and examiner tip on the left panel
+2. Fill in the mandatory **Notes** field — this is your audit record for the decision
+3. If your decision differs from the agent recommendation, fill in the **Override reason** field
+4. Click one of the five action buttons:
+   - **✅ Approve** — approve in full at the agent's recommended amount
+   - **❌ Reject** — deny the claim
+   - **⏸ Pend** — hold for additional documentation or information
+   - **⚠️ Escalate** — escalate to senior examiner
+   - **🔵 Route to HCSA** — redirect to the Health Care Spending Account
+5. Optionally leave feedback in the **Feedback for agent learning** field
+
+Once actioned, the claim status updates in the queue and **the claim is locked** — a decided claim cannot be re-actioned from the UI.
 
 ---
 
